@@ -1,0 +1,11 @@
+pandas
+numpy
+sqlalchemy
+pymysql
+python-dotenv
+matplotlib
+seaborn
+
+
+
+# (작성자는 가상환경이라 상관없지만, 추후 사용하실 분들 )
