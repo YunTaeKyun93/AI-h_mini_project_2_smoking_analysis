@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from utils.db import get_engine
+from utils.db import get_engine, load_table
 
 
 def test_mysql_connection():
@@ -12,6 +12,10 @@ def test_mysql_connection():
         with engine.connect() as conn:
             result = conn.execute(text("SELECT 1")).fetchone()
             print("✅ MySQL 연결 성공:", result)
+
+            print("=========================")
+
+            print("📋 DB Load 성공:", result)
     except Exception as e:
         print("❌ MySQL 연결 실패:", e)
     
