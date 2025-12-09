@@ -1,27 +1,43 @@
 from utils.db import load_table
 import pandas as pd
+from analysis.common.visualize import plot_corr_heatmap
 
 def run():
     df = load_table()
 
-    print("===== [10] 간 기능(LFT) 분석 =====")
+    output_text = []
+    image_files = []
 
-    # TODO 1: LFT 평균 비교
-    mean_table = df.groupby("label")["LFT"].mean().round(2).rename(index={0: "비흡연자", 1: "흡연자"}).to_frame(name="LFT 평균").T
-    print("\n▶ 간 기능(LFT) 평균 비교")
-    print(mean_table)
+    print("===== [11] 상관관계 분석 =====")
+    output_text.append("===== [11] 상관관계 분석 =====")
 
+    
+    numeric_cols = df.select_dtypes(include=["int64", "float64"]).columns
+    df_numeric = df[numeric_cols]
 
-    threshold = df["LFT"].quantile(0.80)
-    df["LFT_high"] = (df["LFT"] >= threshold).astype(int)
-    ratio = pd.crosstab(df["LFT_high"], df["label"], normalize="index") * 100
-    print("\n▶ LFT 높은 사람 기준 (상위 20%):", round(threshold, 3))
-    print("\n▶ LFT 높은 그룹에서 흡연자 비율")
-    print(ratio.round(2))
+    
+    corr = df_numeric.corr()
+
+    
+    label_corr = corr["label"].abs().sort_values(ascending=False)
+
+    print("\n▶ label과의 상관계수 상위 6개 변수")
+    print(label_corr.head(6))
+
+    output_text.append("\n▶ label과의 상관계수 상위 6개 변수")
+    output_text.append(str(label_corr.head(6)))
+
+    
+    img_path = plot_corr_heatmap(df_numeric, save_path="report_images")
+    if img_path:
+        image_files.append(img_path)
+
+    output_text.append("\n▶ 상관관계 히트맵 저장 완료")
 
     print("=============================================")
+    output_text.append("=============================================")
 
-
+    return output_text, image_files
 
 
 if __name__ == "__main__":
