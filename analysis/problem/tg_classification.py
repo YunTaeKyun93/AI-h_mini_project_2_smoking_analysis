@@ -35,8 +35,17 @@ def run():
 
 
     tg_ratio = pd.crosstab(df["TG_stage"], df["label"], normalize="index") * 100
+    
     print(tg_ratio.round(2))
+    
 
+    df["TG_int"] = df["TG"].round().astype(int)
+    ctd = pd.crosstab(df["TG_int"], df["label"])
+    print('----------------')
+    print(ctd)
+    print('----------------')
     text_list.append(str(tg_ratio.round(2)))
 
     return text_list, img_list
+
+

@@ -28,7 +28,13 @@ def run():
 
     df["Hb_stage"] = df["Hb"].apply(classify_hb)
     stage_ratio = pd.crosstab(df["Hb_stage"], df["label"], normalize="index") * 100
+    df["Hb_int"] = df["Hb"].round().astype(int)
+    ctd = pd.crosstab(df["Hb_int"], df["label"])
+    print('----------------')
+    print(ctd)
+    print('----------------')
     print(stage_ratio)
+    
     text_list.append(str(stage_ratio))
 
     return text_list, img_list

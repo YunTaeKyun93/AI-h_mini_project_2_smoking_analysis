@@ -26,7 +26,7 @@ from analysis.problem.smoking_09_hemo_analysis import run as run_smoking9
 from analysis.problem.smoking_10_liver_function import run as run_smoking10
 from analysis.problem.smoking_11_crosstab import run as run_smoking11
 from analysis.problem.smoking_12_stats_test import run as run_smoking12
-
+from analysis.problem.bivariate_analysis01 import run as test1
 from analysis.problem.total_report import run as total
 # 예시와 같이 나중에 추가하면 됩니다 
 # from analysis.problems.activity_analysis import run as run_activity
@@ -51,6 +51,7 @@ ANALYSIS_MAP = {
     "step10" : run_smoking10,
     "step11" : run_smoking11,
     "total" : total,
+    "test1" : test1,
     # "step12" : run_smoking12,
     # "activity": run_activity,
     # "risk": run_risk,

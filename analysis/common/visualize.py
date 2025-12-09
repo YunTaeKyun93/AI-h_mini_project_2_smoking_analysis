@@ -61,6 +61,64 @@ def plot_distribution_mk2(df, column, save_path=None):
 
     return paths
 
+# def plot_scatter(df, x, y, save_path=None):
+#     plt.figure(figsize=(6, 5))
+#     sns.scatterplot(data=df, x=x, y=y)
+#     sns.regplot(data=df, x=x, y=y, scatter=False, color='red')  
+#     plt.title(f"Scatter Plot: {x} vs {y}")
+
+#     _ensure_dir(save_path)
+#     if save_path:
+#         out_path = os.path.join(save_path, f"{x}_{y}_scatter.png")
+#         plt.savefig(out_path)
+#     plt.close()
+    
+#     return out_path if save_path else None
+
+
+
+def plot_scatter(df, x, y, save_path=None):
+    plt.figure(figsize=(7, 6))
+
+    sns.scatterplot(data=df, x=x, y=y, alpha=0.6)
+
+    sns.regplot(data=df, x=x, y=y, scatter=False, color='yellow', line_kws={"linewidth":2})
+
+    plt.title(f"Scatter Plot: {x} vs {y}")
+    plt.xlabel(x)
+    plt.ylabel(y)
+
+    _ensure_dir(save_path)
+    out_path = None
+    if save_path:
+        out_path = os.path.join(save_path, f"{x}_{y}_scatter.png")
+        plt.savefig(out_path)
+
+    plt.close()
+    return out_path
+
+def plot_scatter_hue(df, x, y, save_path=None, hue="label"):
+    g = sns.lmplot(
+        data=df,
+        x=x,
+        y=y,
+        hue=hue,
+        height=6,
+        aspect=1.1,
+        scatter_kws={'alpha': 0.6}
+    )
+
+    g.figure.suptitle(f"Scatter Plot with Hue: {x} vs {y}", y=1.02)
+
+    _ensure_dir(save_path)
+    out_path = None
+    if save_path:
+        out_path = os.path.join(save_path, f"{x}_{y}_scatter_hue.png")
+        g.savefig(out_path)
+
+    plt.close()
+    return out_path
+
 
 
 # KDE 비교 

@@ -11,6 +11,7 @@ from analysis.problem.smoking_10_liver_function import run as run_10
 from analysis.problem.smoking_11_crosstab import run as run_11
 from analysis.problem.tg_classification import run as tg
 from analysis.problem.hb_classfication import run as hb
+from analysis.problem.bivariate_analysis01 import run as ba1
 from utils.pdf_utils import create_pdf   
 
 def run():
@@ -22,7 +23,8 @@ def run():
     for analysis_func in [
         # run_01, run_02, run_03, run_04, run_05,
         # run_06, run_07, run_08, run_09, run_10, run_11
-        tg,hb
+        # tg,hb
+        ba1
     ]:
         text, images = analysis_func()
         all_text.extend(text)
